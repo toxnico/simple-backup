@@ -1,0 +1,4 @@
+{
+ :rsync-options "-avt"
+ :items [{:src ["/home/nico/Apps" "/home/nico/bin"]
+          :dst ["/tmp/backups-nico"]}]}
