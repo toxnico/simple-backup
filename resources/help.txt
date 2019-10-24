@@ -1,0 +1,28 @@
+Welcome to Simple Backup !
+
+Here is how to run the backup process :
+java -jar simple-backup.jar path/to/config.edn
+
+This minimalistic backup program uses rsync in background.
+It allows you to define sets of folders to back up, and for each of this set, a list of destinations.
+
+You can also customize the rsync options.
+
+A configuration file being clearer than an explanation, there you go :
+(edn format, indented to avoid scaring anyone)
+
+{
+  :rsync-options "-avt"
+  :items
+  [
+    {
+      :src ["/home/nico/Apps" "/home/nico/bin"]
+      :dst ["/mnt/remote-server-1/backups" "/mnt/remote-server-2/backups"]
+    }
+
+    {
+      :src ["/var/www"]
+      :dst ["/mnt/remote-server-1/www-backups"]
+    }
+  ]
+ }

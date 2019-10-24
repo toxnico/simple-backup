@@ -25,14 +25,11 @@
          (map #(item->rsyncs opt %))
          (first))))
 
-(defn -main
-  [& args]
-
-  (let [config-path (first args)
-        cfg (read-config-file config-path)
+(defn do-backup
+  [config-path]
+  (let [cfg (read-config-file config-path)
         cmds (config->commands cfg)]
     (doseq [cmd cmds]
-
       (println cmd)
       (let [res (apply shell/sh cmd)]
         (println (:out res))
@@ -40,3 +37,17 @@
 
       (println "done"))
     (shutdown-agents)))
+
+(defn print-help
+  []
+  (-> "resources/help.txt"
+      slurp
+      println))
+
+
+
+(defn -main
+  [& args]
+  (if-not (seq args)
+    (print-help)
+    (do-backup (first args))))
